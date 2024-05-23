@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name='ND940C3-Project'
+rootProject.name='FileDownloader'
 include ':app'

@@ -1,4 +1,4 @@
-package com.udacity
+package com.monsalud
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -25,10 +25,10 @@ class LoadingButton @JvmOverloads constructor(
     }
 
 
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
-
-    }
+//    override fun onDraw(canvas: Canvas?) {
+//        super.onDraw(canvas)
+//
+//    }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val minw: Int = paddingLeft + paddingRight + suggestedMinimumWidth

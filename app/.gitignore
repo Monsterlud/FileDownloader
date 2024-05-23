@@ -4,6 +4,14 @@
 *.ap_
 *.aab
 
+executionHistory.bin
+executionHistory.lock
+file-system.bin
+fileHashes.bin
+fileHashses.lock
+resourceHashesCache.bin
+buildOutputCleanup.lock
+
 # Files for the ART/Dalvik VM
 *.dex
 

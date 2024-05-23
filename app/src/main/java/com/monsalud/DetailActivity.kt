@@ -1,8 +1,8 @@
-package com.udacity
+package com.monsalud
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.udacity.databinding.ActivityDetailBinding
+import com.monsalud.filedownloader.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
 
