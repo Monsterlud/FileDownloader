@@ -4,6 +4,7 @@
 *.ap_
 *.aab
 
+# Build files
 executionHistory.bin
 executionHistory.lock
 file-system.bin
