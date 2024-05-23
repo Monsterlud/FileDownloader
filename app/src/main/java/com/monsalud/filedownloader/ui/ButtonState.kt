@@ -1,4 +1,4 @@
-package com.monsalud
+package com.monsalud.filedownloader.ui
 
 
 sealed class ButtonState {

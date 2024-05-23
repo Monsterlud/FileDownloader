@@ -9,14 +9,94 @@
     tools:context="com.monsalud.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <com.monsalud.LoadingButton
-        android:id="@+id/custom_button"
-        android:layout_width="0dp"
-        app:layout_constraintStart_toStartOf="parent"
+
+    <ImageView
+        android:id="@+id/imageDownloader"
+        android:layout_width="413dp"
+        android:layout_height="173dp"
+        android:background="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_height="60dp"
-        android:layout_margin="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/cloud_download_outline" />
+
+    <TextView
+        android:id="@+id/textDownloader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Choose an item to download:"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageDownloader" />
+
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textDownloader">
+
+        <RadioButton
+            android:id="@+id/radioGlide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Glide-Image Loading Library by Bumptech"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <RadioButton
+            android:id="@+id/radioLoadApp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="LoadApp-Starter Repository by Udacity"
+            app:layout_constraintStart_toStartOf="@+id/radioGlide"
+            app:layout_constraintTop_toBottomOf="@+id/radioGlide" />
+
+        <RadioButton
+            android:id="@+id/radioRetrofit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Retrofit-Type-Safe HTTP Client by Square"
+            app:layout_constraintStart_toStartOf="@+id/radioGlide"
+            app:layout_constraintTop_toBottomOf="@+id/radioLoadApp" />
+
+
+    </RadioGroup>
+
+    <!--    <com.monsalud.filedownloader.ui.LoadingButton-->
+    <!--        android:id="@+id/custom_button"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="60dp"-->
+    <!--        android:layout_margin="20dp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />-->
+
+    <Button
+        android:id="@+id/btnTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/colorAccent"
+        android:padding="16dp"
+        android:text="Go to detail screen"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

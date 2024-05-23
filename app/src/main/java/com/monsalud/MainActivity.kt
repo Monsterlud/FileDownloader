@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import com.monsalud.filedownloader.R
 import com.monsalud.filedownloader.databinding.ActivityMainBinding
+import com.monsalud.filedownloader.databinding.ContentMainBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,6 +37,10 @@ class MainActivity : AppCompatActivity() {
 //        binding.custom_button.setOnClickListener {
 //            download()
 //        }
+        binding.contentMain.btnTemp.setOnClickListener {
+            val intent = Intent(this, DetailActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private val receiver = object : BroadcastReceiver() {
