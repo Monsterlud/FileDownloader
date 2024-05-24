@@ -9,7 +9,7 @@ import android.graphics.Rect
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
-import com.monsalud.filedownloader.ui.ButtonState
+import com.monsalud.filedownloader.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -31,9 +31,10 @@ class LoadingButton @JvmOverloads constructor(
     }
 
     /**
-     * Progress bar progress
+     * Progress bar & progress circle progress
      */
-    var progress = 0f
+    private var barProgress = 0f
+    private var circleProgress = 0f
 
     /**
      * Paint objects for button, text, and progress bar
@@ -49,19 +50,31 @@ class LoadingButton @JvmOverloads constructor(
         style = Paint.Style.FILL
         color = Color.DKGRAY
     }
+    private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.FILL
+        color = resources.getColor(R.color.colorAccent)
+    }
 
     /**
-     * Create button & progress bar rectangles as well as a rectangle for the text
-     * Create a ValueAnimator to animate the progress bar
+     * Create button, progress bar, and text rectangles as well as a progress circle
+     * Create a ValueAnimators to animate the progress bar & progress circle
      */
     private val buttonRectangle = RectF()
+    private val progressBar = RectF()
+    private val circleRectangle = RectF()
     private val textBounds = Rect()
 
-    private val progressBar = RectF()
-    val valueAnimator = ValueAnimator.ofFloat(0f, 100f).apply {
+    private val progressBarAnimator: ValueAnimator = ValueAnimator.ofFloat(0f, 100f).apply {
         duration = 3000
         addUpdateListener { animator ->
-            progress = animator.animatedValue as Float
+            barProgress = animator.animatedValue as Float
+            invalidate()
+        }
+    }
+    val circleAnimator = ValueAnimator.ofFloat(0f, 360f).apply {
+        duration = 3000
+        addUpdateListener { animator ->
+            circleProgress = animator.animatedValue as Float
             invalidate()
         }
     }
@@ -71,15 +84,17 @@ class LoadingButton @JvmOverloads constructor(
      */
     fun startDownloadSimulation() {
         buttonState = ButtonState.Loading
-        valueAnimator.start()
+        progressBarAnimator.start()
+        circleAnimator.start()
 
         CoroutineScope(Dispatchers.IO).launch {
             invalidate()
-            progress = 0f
-            while (progress < 100f) {
+            barProgress = 0f
+            circleProgress = 0f
+            while (barProgress < 100f) {
                 delay(100)
                 withContext(Dispatchers.Main) {
-                    progress += 1f
+                    barProgress += 1f
                     postInvalidate()
                 }
                 postInvalidate()
@@ -89,8 +104,6 @@ class LoadingButton @JvmOverloads constructor(
 
             }
         }.start()
-
-
     }
 
     /**
@@ -105,9 +118,17 @@ class LoadingButton @JvmOverloads constructor(
         canvas.drawRoundRect(buttonRectangle, 16f, 16f, buttonPaint)
 
         if (buttonState == ButtonState.Loading) {
-            val progressWidth = width * (progress / 100f)
+            // Draw progress bar
+            val progressWidth = width * (barProgress / 100f)
             progressBar.set(0f, 0f, progressWidth, height.toFloat())
             canvas.drawRect(progressBar, progressPaint)
+
+            // Draw progress circle
+            val centerY = height / 2f
+            val radius = min(height / 1.2f, 60f)
+            val circleRight = width.toFloat() - radius - 10f
+            circleRectangle.set(circleRight - 2 * radius, centerY - radius, circleRight, centerY + radius)
+            canvas.drawArc(circleRectangle, 270f, circleProgress, true, circlePaint)
         }
 
         val text = if (buttonState == ButtonState.Loading) "We are loading!" else "Download"
@@ -123,7 +144,7 @@ class LoadingButton @JvmOverloads constructor(
      */
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val desiredWidth = 200
-        val desiredHeight = 50 
+        val desiredHeight = 50
 
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
         val widthSize = MeasureSpec.getSize(widthMeasureSpec)
