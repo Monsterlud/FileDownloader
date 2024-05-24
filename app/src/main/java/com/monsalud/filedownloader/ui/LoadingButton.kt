@@ -71,7 +71,7 @@ class LoadingButton @JvmOverloads constructor(
             invalidate()
         }
     }
-    val circleAnimator = ValueAnimator.ofFloat(0f, 360f).apply {
+    private val circleAnimator: ValueAnimator = ValueAnimator.ofFloat(0f, 360f).apply {
         duration = 3000
         addUpdateListener { animator ->
             circleProgress = animator.animatedValue as Float
@@ -114,7 +114,7 @@ class LoadingButton @JvmOverloads constructor(
 
         buttonRectangle.set(0f, 0f, width.toFloat(), height.toFloat())
         buttonPaint.style = Paint.Style.FILL
-        buttonPaint.color = if (buttonState == ButtonState.Loading) Color.GRAY else Color.BLUE
+        buttonPaint.color = if (buttonState == ButtonState.Loading) Color.GRAY else resources.getColor(R.color.colorPrimary)
         canvas.drawRoundRect(buttonRectangle, 16f, 16f, buttonPaint)
 
         if (buttonState == ButtonState.Loading) {

@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import com.monsalud.filedownloader.R
 import com.monsalud.filedownloader.databinding.ActivityMainBinding
-import com.monsalud.filedownloader.databinding.ContentMainBinding
 import com.monsalud.filedownloader.ui.ButtonState
 
 class MainActivity : AppCompatActivity() {
@@ -35,10 +34,17 @@ class MainActivity : AppCompatActivity() {
 
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
-        val downloadbutton = binding.contentMain.btnDownload
-        downloadbutton.setOnClickListener {
-            if (downloadbutton.buttonState != ButtonState.Loading) {
-                downloadbutton.startDownloadSimulation()
+        val downloadButton = binding.contentMain.btnDownload
+        val radioGlide = binding.contentMain.radioGlide
+        val radioLoadApp = binding.contentMain.radioLoadApp
+        val radioRetrofit = binding.contentMain.radioRetrofit
+
+        downloadButton.setOnClickListener {
+            if (!(radioGlide.isChecked || radioLoadApp.isChecked || radioRetrofit.isChecked)) {
+                Toast.makeText(this, "Please select a file to download", Toast.LENGTH_SHORT).show()
+            } else if (downloadButton.buttonState != ButtonState.Loading) {
+                downloadButton.startDownloadSimulation()
+                // send a notification that contains a click action to open the detail view
             }
         }
     }
