@@ -9,11 +9,13 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import com.monsalud.filedownloader.R
 import com.monsalud.filedownloader.databinding.ActivityMainBinding
 import com.monsalud.filedownloader.databinding.ContentMainBinding
+import com.monsalud.filedownloader.ui.ButtonState
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,13 +35,11 @@ class MainActivity : AppCompatActivity() {
 
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
-        // TODO: Implement code below
-//        binding.custom_button.setOnClickListener {
-//            download()
-//        }
-        binding.contentMain.btnTemp.setOnClickListener {
-            val intent = Intent(this, DetailActivity::class.java)
-            startActivity(intent)
+        val downloadbutton = binding.contentMain.btnDownload
+        downloadbutton.setOnClickListener {
+            if (downloadbutton.buttonState != ButtonState.Loading) {
+                downloadbutton.startDownloadSimulation()
+            }
         }
     }
 

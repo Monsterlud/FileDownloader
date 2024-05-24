@@ -17,5 +17,9 @@
 
     <style name="FileDownloaderTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="RadioButtonTypography">
+        <item name="android:textSize">20sp</item>
+    </style>
+
 </resources>
 
