@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                     radioRetrofit.isChecked -> "https://github.com/square/retrofit"
                     else -> "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter"
                 }
-//                download(url)
+                download(url)
                 downloadButton.startDownloadAnimation()
             }
         }

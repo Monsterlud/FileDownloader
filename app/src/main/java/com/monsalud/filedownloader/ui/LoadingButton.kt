@@ -103,9 +103,6 @@ class LoadingButton @JvmOverloads constructor(
             }
             withContext(Dispatchers.Main) {
                 buttonState = ButtonState.Completed
-
-                val intent = Intent(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
-                context.sendBroadcast(intent)
             }
         }.start()
     }
