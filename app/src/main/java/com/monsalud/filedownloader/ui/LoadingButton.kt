@@ -1,7 +1,9 @@
 package com.monsalud.filedownloader.ui
 
 import android.animation.ValueAnimator
+import android.app.DownloadManager
 import android.content.Context
+import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -80,9 +82,9 @@ class LoadingButton @JvmOverloads constructor(
     }
 
     /**
-     * Start the download simulation
+     * Start the download animation
      */
-    fun startDownloadSimulation() {
+    fun startDownloadAnimation() {
         buttonState = ButtonState.Loading
         progressBarAnimator.start()
         circleAnimator.start()
@@ -102,6 +104,8 @@ class LoadingButton @JvmOverloads constructor(
             withContext(Dispatchers.Main) {
                 buttonState = ButtonState.Completed
 
+                val intent = Intent(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+                context.sendBroadcast(intent)
             }
         }.start()
     }
