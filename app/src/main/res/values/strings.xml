@@ -15,5 +15,6 @@
     <string name="file_downloader_channel_id">file_downloader_channel</string>
     <string name="file_downloader_channel_name">FileDownloader Updates</string>
 
-    <string name="file_download_complete">File Download Complete</string>
+    <string name="file_download_notification_title">Udacity: Android Kotlin Nanodegree</string>
+    <string name="file_download_notification_message">The Project 3 repository is downloaded</string>
 </resources>

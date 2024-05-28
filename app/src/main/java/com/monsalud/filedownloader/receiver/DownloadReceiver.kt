@@ -5,6 +5,7 @@ import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.core.content.ContextCompat
 import com.monsalud.filedownloader.R
 import com.monsalud.sendNotification
@@ -22,25 +23,30 @@ class DownloadReceiver : BroadcastReceiver() {
         if (cursor.moveToFirst()) {
             // Get the column index for the status column
             val columnIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)
+            val columnTitle = cursor.getColumnIndex(DownloadManager.COLUMN_TITLE)
             // Check if the column index is valid (needs to be greater than or equal to 0)
             if (columnIndex >= 0) {
-            val status = cursor.getInt(columnIndex)
-                // Check to see if the download is successful. If so, send a notification.
-                if (status == DownloadManager.STATUS_SUCCESSFUL) {
-                    val notificationManager = context.let {
-                        ContextCompat.getSystemService(
-                            it,
-                            NotificationManager::class.java
-                        )
-                    } as NotificationManager
+                val fileName = cursor.getString(columnTitle)
+                val downloadStatus = cursor.getInt(columnIndex)
 
-                    notificationManager.sendNotification(
-                        context.getText(R.string.file_download_complete).toString(),
-                        "Udacity: Test Message Body",
-                        context
+                val notificationManager = context.let {
+                    ContextCompat.getSystemService(
+                        it,
+                        NotificationManager::class.java
                     )
-                }
+                } as NotificationManager
+
+                notificationManager.sendNotification(
+                    context.getText(R.string.file_download_notification_title).toString(),
+                    context.getText(R.string.file_download_notification_message).toString(),
+                    context,
+                    fileName,
+                    downloadStatus
+                )
             }
+        } else {
+            Log.e("DownloadReceiver", "Cursor is empty")
         }
+        cursor.close()
     }
 }

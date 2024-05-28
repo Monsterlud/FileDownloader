@@ -94,9 +94,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun download(url: String) {
+        val fileName = when {
+            binding.contentMain.radioGlide.isChecked -> "Glide - Image Loading Library by BumpTech"
+            binding.contentMain.radioLoadApp.isChecked -> "LoadApp - Current repository by Udacity"
+            binding.contentMain.radioRetrofit.isChecked -> "Retrofit - Type-safe HTTP client for Android and Kotlin by Square, Inc."
+            else -> "Udacity - Android Kotlin Nanodegree"
+        }
         val request =
             DownloadManager.Request(Uri.parse(url))
-                .setTitle(getString(R.string.app_name))
+                .setTitle(fileName)
                 .setDescription(getString(R.string.app_description))
                 .setRequiresCharging(false)
                 .setAllowedOverMetered(true)
@@ -114,12 +120,17 @@ class MainActivity : AppCompatActivity() {
 fun NotificationManager.sendNotification(
     title: String,
     messageBody: String,
-    applicationContext: Context
+    applicationContext: Context,
+    fileName: String?,
+    downloadStatus: Int?
 ) {
-    val contentIntent = Intent(applicationContext, MainActivity::class.java)
+    val contentIntent = Intent(applicationContext, DetailActivity::class.java).apply {
+        putExtra("fileName", fileName)
+        putExtra("downloadStatus", downloadStatus)
+    }
     val contentPendingIntent = PendingIntent.getActivity(
         applicationContext,
-        NOTIFICATION_ID,
+        System.currentTimeMillis().toInt(),
         contentIntent,
         PendingIntent.FLAG_IMMUTABLE
     )
