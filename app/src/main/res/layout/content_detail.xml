@@ -1,70 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.monsalud.DetailActivity"
-    tools:showIn="@layout/activity_detail">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textFileName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="64dp"
-        android:text="File Name:"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="180dp">
 
-    <TextView
-        android:id="@+id/textFileNameContent"
-        android:layout_width="220dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="32dp"
-        android:text="TextView"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/motion_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutDescription="@xml/content_detail_scene"
+            android:minHeight="100dp"
+            app:layout_scrollFlags="scroll|enterAlways|snap|exitUntilCollapsed"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context="com.monsalud.DetailActivity"
+            tools:showIn="@layout/activity_detail">
 
-    <TextView
-        android:id="@+id/textStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="72dp"
-        android:textStyle="bold"
-        android:text="Status:"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textFileNameContent" />
+            <ImageView
+                android:id="@+id/background"
+                android:layout_width="0dp"
+                android:layout_height="1000dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.48"
+                app:srcCompat="@drawable/background" />
 
-    <TextView
-        android:id="@+id/textStatusContent"
-        android:layout_width="220dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="32dp"
-        android:text="TextView"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textFileNameContent" />
+            <TextView
+                android:id="@+id/scrollDirections"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:text="@string/scroll_up_for_the_ok_button"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="scroll up for the ok button" />
 
-    <Button
-        android:id="@+id/btnBackToMainScreen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:padding="16dp"
-        android:backgroundTint="@color/colorAccent"
-        android:text="OK"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/buttonDirections"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:text="@string/click_ok_to_go_back_to_the_main_screen"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Click OK to go back to the main screen" />
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textFileName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="64dp"
+                android:text="File Name:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textFileNameContent"
+                android:layout_width="220dp"
+                android:layout_height="72dp"
+                android:layout_marginTop="64dp"
+                android:layout_marginEnd="32dp"
+                android:text="TextView"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="72dp"
+                android:text="Status:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textFileNameContent" />
+
+            <TextView
+                android:id="@+id/textStatusContent"
+                android:layout_width="220dp"
+                android:layout_height="72dp"
+                android:layout_marginTop="72dp"
+                android:layout_marginEnd="32dp"
+                android:text="TextView"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textFileNameContent" />
+
+            <Button
+                android:id="@+id/btnBackToMainScreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:layout_marginBottom="32dp"
+                android:backgroundTint="@color/colorAccent"
+                android:padding="16dp"
+                android:text="OK"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

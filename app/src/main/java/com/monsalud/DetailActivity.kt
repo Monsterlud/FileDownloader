@@ -3,6 +3,7 @@ package com.monsalud
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.appbar.AppBarLayout
 import com.monsalud.filedownloader.databinding.ActivityDetailBinding
 
 enum class DownloadStatus {
@@ -19,6 +20,7 @@ enum class DownloadStatus {
     STATUS_UNHANDLED_HTTP_CODE,
     STATUS_UNKNOWN_ERROR
 }
+
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
@@ -28,6 +30,9 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+
+        val toolbar = binding.toolbar
+        toolbar.visibility = android.view.View.GONE
 
         binding.contentDetail.btnBackToMainScreen.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
@@ -56,5 +61,18 @@ class DetailActivity : AppCompatActivity() {
             1024 -> DownloadStatus.STATUS_UNHANDLED_HTTP_CODE.name
             else -> DownloadStatus.STATUS_UNKNOWN_ERROR.name
         }
+        coordinateMotion()
     }
+
+    private fun coordinateMotion() {
+        val appBarLayout = binding.contentDetail.appbarLayout
+        val motionLayout = binding.contentDetail.motionLayout
+
+        val listener = AppBarLayout.OnOffsetChangedListener { unused, verticalOffset ->
+            val seekPosition = -verticalOffset / appBarLayout.totalScrollRange.toFloat()
+            motionLayout.progress = seekPosition
+        }
+        appBarLayout.addOnOffsetChangedListener(listener)
+    }
+
 }

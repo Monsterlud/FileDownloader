@@ -17,4 +17,6 @@
 
     <string name="file_download_notification_title">Udacity: Android Kotlin Nanodegree</string>
     <string name="file_download_notification_message">The Project 3 repository is downloaded</string>
+    <string name="click_ok_to_go_back_to_the_main_screen">Click OK to go back to the Main Screen</string>
+    <string name="scroll_up_for_the_ok_button">scroll up for the ok button</string>
 </resources>
