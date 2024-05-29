@@ -25,6 +25,21 @@ class LoadingButton @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
+    var buttonTextSize: Float
+    var progressColor: Int
+    var circleColor: Int
+
+    init {
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LoadingButton)
+        buttonTextSize =
+            typedArray.getDimension(R.styleable.LoadingButton_buttonTextSize, 40f)
+        progressColor =
+            typedArray.getColor(R.styleable.LoadingButton_progressBarColor, Color.DKGRAY)
+        circleColor =
+            typedArray.getColor(R.styleable.LoadingButton_progressCircleColor, resources.getColor(R.color.colorAccent))
+
+        typedArray.recycle()
+    }
 
     /**
      * ButtonState: Clicked, Loading, Completed
@@ -44,17 +59,17 @@ class LoadingButton @JvmOverloads constructor(
     private val buttonPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
     private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        textSize = 40f
+        textSize = buttonTextSize
         color = Color.WHITE
         textAlign = Paint.Align.CENTER
     }
     private val progressPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
-        color = Color.DKGRAY
+        color = progressColor
     }
     private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
-        color = resources.getColor(R.color.colorAccent)
+        color = circleColor
     }
 
     /**
@@ -132,7 +147,7 @@ class LoadingButton @JvmOverloads constructor(
             canvas.drawArc(circleRectangle, 270f, circleProgress, true, circlePaint)
         }
 
-        val text = if (buttonState == ButtonState.Loading) "We are loading!" else "Download"
+        val text = if (buttonState == ButtonState.Loading) resources.getString(R.string.button_loading) else resources.getString(R.string.button_name)
         textPaint.textSize = 60f
         textPaint.getTextBounds(text, 0, text.length, textBounds)
         val textX = width / 2f

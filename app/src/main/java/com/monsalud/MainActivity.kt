@@ -134,6 +134,13 @@ fun NotificationManager.sendNotification(
         contentIntent,
         PendingIntent.FLAG_IMMUTABLE
     )
+
+    val buttonAction = NotificationCompat.Action.Builder(
+        0,
+        "View Details",
+        contentPendingIntent
+    ).build()
+
     val builder = NotificationCompat.Builder(
         applicationContext,
         applicationContext.getString(R.string.file_downloader_channel_id)
@@ -141,7 +148,7 @@ fun NotificationManager.sendNotification(
         .setSmallIcon(R.drawable.ic_filedownloader_notification_black)
         .setContentTitle(title)
         .setContentText(messageBody)
-        .setContentIntent(contentPendingIntent)
+        .addAction(buttonAction)
         .setAutoCancel(true)
 
     notify(NOTIFICATION_ID, builder.build())
